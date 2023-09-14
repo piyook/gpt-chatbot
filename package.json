@@ -15,8 +15,12 @@
 		"audit": "npm audit --omit-dev"
 	},
 	"dependencies": {
+		"bootstrap": "^5.3.1",
+		"bootswatch": "^5.3.1",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-bootstrap": "^2.8.0",
+		"react-dom": "^18.2.0",
+		"react-icons": "^4.11.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.7.1",
@@ -50,7 +54,7 @@
 		]
 	},
 	"validate-branch-name": {
-		"pattern": "^(main|dev|staging){1}$|^(feat|fix|hotfix|release|chore)\/.+$",
+		"pattern": "^(main|dev|staging){1}$|^(feat|fix|hotfix|release|chore)/.+$",
 		"errorMsg": "INVALID BRANCH NAME: use format 'feat|fix|hotfix|release|core/your-branch-name'"
 	}
 }

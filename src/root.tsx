@@ -1,8 +1,10 @@
 import React from 'react';
-import HomePage from './views/home-page';
+import 'bootswatch/dist/superhero/bootstrap.min.css';
+import './App.css';
+import ChatPage from './views/chat-page';
 
 function Root(): React.JSX.Element {
-	return <HomePage />;
+	return <ChatPage />;
 }
 
 export default Root;
