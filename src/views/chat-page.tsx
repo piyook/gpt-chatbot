@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stack } from 'react-bootstrap';
 import UserBox from '../components/user-box';
-import BotBox from '../components/bot-box';
+import BotResponse from '../components/bot-response';
 import IntroBox from '../components/intro-box';
 
 type ChatPageProps = {
@@ -21,7 +21,7 @@ function ChatPage({ chatItems }: ChatPageProps): React.JSX.Element {
 				return (
 					<div key={item.answer}>
 						<UserBox userQuestion={item.question} />
-						<BotBox key={item.answer} botAnswer={item.answer} />
+						<BotResponse key={item.answer} botAnswer={item.answer} />
 					</div>
 				);
 			})}
