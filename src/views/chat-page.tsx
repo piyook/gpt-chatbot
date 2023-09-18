@@ -1,13 +1,29 @@
 import React from 'react';
-import { BsRobot } from 'react-icons/bs';
+import { Stack } from 'react-bootstrap';
+import UserBox from '../components/user-box';
+import BotBox from '../components/bot-box';
 
-function ChatPage(): React.JSX.Element {
+type ChatPageProps = {
+	readonly chatItems: Array<{
+		question: string | undefined;
+		answer: string | undefined;
+	}>;
+};
+
+function ChatPage({ chatItems }: ChatPageProps): React.JSX.Element {
 	return (
-		<div>
-			<h1 className="display-1 text-primary">
-				Welcome <BsRobot />
-			</h1>
-		</div>
+		<Stack className="mainContainer mt-5">
+			{chatItems.map((item) => {
+				if (item.question === undefined || item.answer === undefined) return;
+
+				return (
+					<div key={item.answer}>
+						<UserBox userQuestion={item.question} />
+						<BotBox key={item.answer} botAnswer={item.answer} />
+					</div>
+				);
+			})}
+		</Stack>
 	);
 }
 
