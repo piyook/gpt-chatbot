@@ -3,11 +3,11 @@ import 'bootswatch/dist/solar/bootstrap.min.css';
 import { BiUser } from 'react-icons/bi';
 import '../App.css';
 
-type UserBoxProps = {
+function UserBox({
+	userQuestion,
+}: {
 	readonly userQuestion: string;
-};
-
-function UserBox({ userQuestion }: UserBoxProps): React.JSX.Element {
+}): React.JSX.Element {
 	return (
 		<div className="d-flex flex-column justify-content-end align-items-end">
 			<BiUser className="botIcon chatIcon mb-4 bg-info text-white" />

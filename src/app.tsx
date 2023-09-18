@@ -2,21 +2,21 @@ import React, { useState, useRef } from 'react';
 import 'bootswatch/dist/solar/bootstrap.min.css';
 import './App.css';
 import ChatPage from './views/chat-page';
-import LandingPage from './views/landing-page';
 
-type ChatState = Array<{
+type ChatData = Array<{
 	question: string | undefined;
 	answer: string | undefined;
 }>;
 
-function Root(): React.JSX.Element {
-	const [chatItems, setChatItems] = useState<ChatState>([]);
+function App(): React.JSX.Element {
+	const [chatItems, setChatItems] = useState<ChatData>([]);
 
 	const inputData = useRef<HTMLInputElement>(null);
 
 	const submitHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (event.key !== 'Enter') return;
 
+		// Add new question and answers to array in state
 		setChatItems((current) => {
 			return [
 				...current,
@@ -30,7 +30,6 @@ function Root(): React.JSX.Element {
 
 	return (
 		<>
-			<LandingPage />
 			<ChatPage chatItems={chatItems} />
 			<input
 				ref={inputData}
@@ -43,4 +42,4 @@ function Root(): React.JSX.Element {
 	);
 }
 
-export default Root;
+export default App;
