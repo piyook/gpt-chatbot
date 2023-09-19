@@ -6,12 +6,14 @@ import './App.css';
 import ChatPage from './views/chat-page';
 
 type ChatData = Array<{
+	id: string | undefined;
 	question: string | undefined;
 	answer: string | undefined;
 }>;
 
 const openai = new OpenAI({
-	apiKey: import.meta.env.VITE_OPENAI_API_KEY as string,
+	apiKey:
+		(import.meta.env.VITE_OPENAI_API_KEY as string) ?? 'please_provide_key',
 	dangerouslyAllowBrowser: true,
 });
 
@@ -34,6 +36,11 @@ function App(): React.JSX.Element {
 			return;
 
 		const userQuestion = inputData.current.value;
+
+		const uniquishId: string =
+			Date.now().toString(36) +
+			Math.floor(Number.MAX_SAFE_INTEGER * Math.random()).toString(36);
+
 		setIsLoading(true);
 
 		const parameters: OpenAI.Chat.ChatCompletionCreateParams = {
@@ -51,7 +58,7 @@ function App(): React.JSX.Element {
 					return undefined;
 				}
 
-				throw new Error('error');
+				throw new Error('Sorry - there was an error. Please Try again later.');
 			});
 		const OaiAnswer: string | undefined =
 			completion?.choices[0].message.content ?? 'error';
@@ -65,6 +72,7 @@ function App(): React.JSX.Element {
 			return [
 				...current,
 				{
+					id: uniquishId,
 					question: userQuestion,
 					answer: `${OaiAnswer}`,
 				},

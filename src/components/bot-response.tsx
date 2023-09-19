@@ -29,7 +29,7 @@ function BotResponse({
 			<BsRobot className="botIcon chatIcon mb-4 text-white bg-warning" />
 
 			{botAnswerSentence.map((sentence) => (
-				<BotBox key={sentence} botAnswer={sentence} />
+				<BotBox key={crypto.randomUUID()} botAnswer={sentence} />
 			))}
 		</div>
 	);
