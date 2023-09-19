@@ -1,7 +1,7 @@
-/* eslint-disable  no-warning-comments */
 import React, { useState, useRef, useEffect } from 'react';
 import OpenAI from 'openai';
 import 'bootswatch/dist/solar/bootstrap.min.css';
+import LoadSpinner from './components/load-spinner';
 import './App.css';
 import ChatPage from './views/chat-page';
 
@@ -17,7 +17,7 @@ const openai = new OpenAI({
 
 function App(): React.JSX.Element {
 	const [chatItems, setChatItems] = useState<ChatData>([]);
-
+	const [isLoading, setIsLoading] = useState(false);
 	const inputData = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
@@ -33,10 +33,15 @@ function App(): React.JSX.Element {
 		)
 			return;
 
+		const userQuestion = inputData.current.value;
+		setIsLoading(true);
+
 		const parameters: OpenAI.Chat.ChatCompletionCreateParams = {
 			messages: [{ role: 'user', content: inputData.current.value }],
 			model: 'gpt-3.5-turbo',
 		};
+
+		inputData.current.value = '';
 
 		const completion: OpenAI.Chat.ChatCompletion | undefined =
 			await openai.chat.completions.create(parameters).catch((error) => {
@@ -53,14 +58,14 @@ function App(): React.JSX.Element {
 
 		console.log(completion?.choices);
 
-		// TODO - need to 1. clear input 2. show loading spinner until answer is ready then 3. display answer.
+		setIsLoading(false);
 
 		// Add new question and answers to array in state
 		setChatItems((current) => {
 			return [
 				...current,
 				{
-					question: inputData?.current?.value,
+					question: userQuestion,
 					answer: `${OaiAnswer}`,
 				},
 			];
@@ -69,6 +74,7 @@ function App(): React.JSX.Element {
 
 	return (
 		<>
+			{isLoading && <LoadSpinner />}
 			<ChatPage chatItems={chatItems} />
 			<input
 				ref={inputData}
