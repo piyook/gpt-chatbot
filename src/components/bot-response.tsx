@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { BsRobot } from 'react-icons/bs';
+import { uniquishId } from '../utils/utils';
 import BotBox from './bot-box';
 
 function BotResponse({
@@ -15,11 +16,12 @@ function BotResponse({
 
 	const [botAnswerSentence, setBotAnswerSentence] = useState<string[]>([]);
 
+	// Stagger response panes by 1s each rather than show all at once to give illusion of 'typing' responses
 	useEffect(() => {
 		for (const [index, sentence] of BotSentences.entries()) {
 			setTimeout(() => {
 				setBotAnswerSentence((previous) => [...previous, sentence]);
-			}, index * 1500);
+			}, index * 1000);
 			continue;
 		}
 	}, [BotSentences]);
@@ -29,7 +31,7 @@ function BotResponse({
 			<BsRobot className="botIcon chatIcon mb-4 text-white bg-warning" />
 
 			{botAnswerSentence.map((sentence) => (
-				<BotBox key={crypto.randomUUID()} botAnswer={sentence} />
+				<BotBox key={uniquishId()} botAnswer={sentence} />
 			))}
 		</div>
 	);

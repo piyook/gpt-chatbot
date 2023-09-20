@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import OpenAI from 'openai';
 import 'bootswatch/dist/solar/bootstrap.min.css';
 import LoadSpinner from './components/load-spinner';
 import './App.css';
+import { uniquishId } from './utils/utils';
 import ChatPage from './views/chat-page';
 
 type ChatData = Array<{
@@ -11,6 +12,9 @@ type ChatData = Array<{
 	answer: string | undefined;
 }>;
 
+/* Set OAI config object
+NOTE THIS IS FOR DEMO PROJECT PURPOSES ONLY NEVER USE API KEY IN FRONTEND CLIENT IN 
+A REAL PRODUCTION APP - INSTEAD CREATE A BACKEND API TO HANDLE THIS FOR THE APP */
 const openai = new OpenAI({
 	apiKey:
 		(import.meta.env.VITE_OPENAI_API_KEY as string) ?? 'please_provide_key',
@@ -22,12 +26,8 @@ function App(): React.JSX.Element {
 	const [isLoading, setIsLoading] = useState(false);
 	const inputData = useRef<HTMLInputElement>(null);
 
-	useEffect(() => {
-		if (inputData.current === null) return;
-		inputData.current.value = '';
-	}, [chatItems]);
-
 	const submitHandler = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+		// Screen out empty values or any key press that is not 'enter'
 		if (
 			event.key !== 'Enter' ||
 			inputData.current === null ||
@@ -35,21 +35,21 @@ function App(): React.JSX.Element {
 		)
 			return;
 
+		// Set up return data and set loading spinner until OAI response is obtained
 		const userQuestion = inputData.current.value;
-
-		const uniquishId: string =
-			Date.now().toString(36) +
-			Math.floor(Number.MAX_SAFE_INTEGER * Math.random()).toString(36);
 
 		setIsLoading(true);
 
+		// Prepare prompt
 		const parameters: OpenAI.Chat.ChatCompletionCreateParams = {
 			messages: [{ role: 'user', content: inputData.current.value }],
 			model: 'gpt-3.5-turbo',
 		};
 
+		// Reset input to empty
 		inputData.current.value = '';
 
+		// Get OAI response with user supplied prompt and await response
 		const completion: OpenAI.Chat.ChatCompletion | undefined =
 			await openai.chat.completions.create(parameters).catch((error) => {
 				if (error instanceof OpenAI.APIError) {
@@ -60,19 +60,19 @@ function App(): React.JSX.Element {
 
 				throw new Error('Sorry - there was an error. Please Try again later.');
 			});
+
+		// Set OAI response and unset loading spinner
 		const OaiAnswer: string | undefined =
 			completion?.choices[0].message.content ?? 'error';
 
-		console.log(completion?.choices);
-
 		setIsLoading(false);
 
-		// Add new question and answers to array in state
+		// Add new question and answers to array in state to trigger re-render
 		setChatItems((current) => {
 			return [
 				...current,
 				{
-					id: uniquishId,
+					id: uniquishId(),
 					question: userQuestion,
 					answer: `${OaiAnswer}`,
 				},

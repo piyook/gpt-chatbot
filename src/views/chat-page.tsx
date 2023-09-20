@@ -22,7 +22,7 @@ function ChatPage({ chatItems }: ChatPageProps): React.JSX.Element {
 				return (
 					<div key={item.id}>
 						<UserBox userQuestion={item.question} />
-						<BotResponse key={item.answer} botAnswer={item.answer} />
+						<BotResponse botAnswer={item.answer} />
 					</div>
 				);
 			})}
