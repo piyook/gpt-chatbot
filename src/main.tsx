@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react/react-in-jsx-scope */
+
 import ReactDOM from 'react-dom/client';
 import App from './app.tsx';
 import './index.css';

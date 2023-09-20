@@ -1,27 +1,30 @@
-# React + TypeScript + Vite
+# DEMO Open AI Chatbot Web-UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+A very simple Demo Chat GPT frontend client built using Vite, React and TypeScript.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### NOTE: This is a demo project only. Never put Open AI API keys inside a production frontend client application. Instead create a backend API to contact Open AI and relay the response back to the client app using any required authorisation method
 
-## Expanding the ESLint configuration
+![intro view](images/intro.png) ![loading view](images/loading.png)![response view](images/response.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Set-up
 
-- Configure the top-level `parserOptions` property like this:
+Clone the project and install all dependencies using npm install.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+Create an Open API API key from your Open API account.
+
+Copy the example.env file to .env in the project root and paste the API key value in.
+
+From the command line run  
+
+```
+ npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+This will start up up the VITE dev server and serve the app from localhost:5173
+
+## TO DO
+
+- Build a local dockerized Node.js backend service to contact Open AI and remove need for OpenAI API key in the App.
+- Add functionality to save or print conversations or individual responses.

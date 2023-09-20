@@ -6,6 +6,7 @@ import IntroBox from '../components/intro-box';
 
 type ChatPageProps = {
 	readonly chatItems: Array<{
+		id: string | undefined;
 		question: string | undefined;
 		answer: string | undefined;
 	}>;
@@ -19,9 +20,9 @@ function ChatPage({ chatItems }: ChatPageProps): React.JSX.Element {
 				if (item.question === undefined || item.answer === undefined) return;
 
 				return (
-					<div key={item.answer}>
+					<div key={item.id}>
 						<UserBox userQuestion={item.question} />
-						<BotResponse key={item.answer} botAnswer={item.answer} />
+						<BotResponse botAnswer={item.answer} />
 					</div>
 				);
 			})}
