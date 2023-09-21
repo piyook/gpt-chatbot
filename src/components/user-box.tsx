@@ -9,9 +9,9 @@ function UserBox({
 	readonly userQuestion: string;
 }): React.JSX.Element {
 	return (
-		<div className="d-flex flex-column justify-content-end align-items-end">
-			<BiUser className="botIcon chatIcon mb-4 bg-info text-white" />
-			<p className="userOutput bg-light">{userQuestion}</p>
+		<div className="UserBox d-flex flex-column justify-content-end align-items-end">
+			<BiUser className="BotIcon BotIcon--chat mb-4 bg-info text-white" />
+			<p className="UserBox__userOutput bg-light">{userQuestion}</p>
 		</div>
 	);
 }

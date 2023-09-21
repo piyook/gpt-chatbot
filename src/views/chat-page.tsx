@@ -14,13 +14,13 @@ type ChatPageProps = {
 
 function ChatPage({ chatItems }: ChatPageProps): React.JSX.Element {
 	return (
-		<Stack className="mainContainer mt-5">
+		<Stack className="ChatPage mt-5">
 			<IntroBox />
 			{chatItems.map((item) => {
 				if (item.question === undefined || item.answer === undefined) return;
 
 				return (
-					<div key={item.id}>
+					<div key={item.id} className="ChatPage__responseSection">
 						<UserBox userQuestion={item.question} />
 						<BotResponse botAnswer={item.answer} />
 					</div>

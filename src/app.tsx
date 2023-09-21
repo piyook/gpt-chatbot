@@ -86,7 +86,7 @@ function App(): React.JSX.Element {
 			<ChatPage chatItems={chatItems} />
 			<input
 				ref={inputData}
-				className="userInput text-dark fw-bold footer"
+				className="UserInput text-dark fw-bold"
 				type="text"
 				placeholder=">"
 				onKeyUp={submitHandler}

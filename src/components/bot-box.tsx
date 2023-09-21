@@ -14,7 +14,7 @@ function BotBox({
 	}, [botAnswer]);
 
 	return (
-		<p ref={botAnswerRef} className="botOutput bg-light mb-5">
+		<p ref={botAnswerRef} className="BotBox bg-light mb-5">
 			{botAnswer}
 		</p>
 	);
