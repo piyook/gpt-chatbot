@@ -27,8 +27,8 @@ function BotResponse({
 	}, [BotSentences]);
 
 	return (
-		<div className="d-flex flex-column justify-content-start align-items-start mb-5">
-			<BsRobot className="botIcon chatIcon mb-4 text-white bg-warning" />
+		<div className="BotResponse d-flex flex-column justify-content-start align-items-start mb-5">
+			<BsRobot className="BotIcon BotIcon--chat mb-4 text-white bg-warning" />
 
 			{botAnswerSentence.map((sentence) => (
 				<BotBox key={uniquishId()} botAnswer={sentence} />
